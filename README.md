@@ -1,9 +1,9 @@
 This package contains foundationdb binaries for both the server and the client.
 
 This package was created because the foundationdb AUR packages was based on the
-DEB packages and wasn't using systemd.
+DEB packages and weren't using systemd.
 
-After installation, remember to configure a database. For example using
+After installation, remember to configure a database. For example, using
 
 ```bash
 fdbcli --exec configure new single memory
