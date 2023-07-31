@@ -1,14 +1,23 @@
 post_install() {
-	if [ "$1" = configure ]; then
-	    ldconfig
+	getent group foundationdb >/dev/null || groupadd --system foundationdb
+	getent passwd foundationdb >/dev/null ||
+		useradd --system \
+			--shell /usr/bin/nologin \
+			--gid foundationdb \
+			--no-create-home \
+			--home-dir /var/lib/foundationdb \
+			foundationdb
 
-	    if [ "$2" = "" ]; then
-	        getent group foundationdb >/dev/null || groupadd --system foundationdb
-	        getent passwd foundationdb >/dev/null || useradd --system --disabled-login --gid foundationdb --no-create-home --home-dir /var/lib/foundationdb --gecos "FoundationDB" --shell /usr/bin/false foundationdb
+	chown -R foundationdb:foundationdb /var/lib/foundationdb /var/log/foundationdb
+	chmod -R 0700 /var/lib/foundationdb/data /var/log/foundationdb
 
-	        chown foundationdb:foundationdb /etc/foundationdb
-	        chmod 775 /etc/foundationdb
-	    fi
+	if [ ! -f /etc/foundationdb/fdb.cluster ]; then
+		description=`LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 8`
+		random_str=`LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 8`
+		echo $description:$random_str@127.0.0.1:4500 > /etc/foundationdb/fdb.cluster
+		chown foundationdb:foundationdb /etc/foundationdb/fdb.cluster
+		chmod 0664 /etc/foundationdb/fdb.cluster
+		NEWDB=1
 	fi
 }
 
