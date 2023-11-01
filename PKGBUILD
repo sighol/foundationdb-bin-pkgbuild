@@ -41,3 +41,9 @@ package(){
 	mv "${pkgdir}"/usr/lib64/* "${pkgdir}/usr/lib"
 	rmdir "${pkgdir}"/usr/lib64/
 }
+
+post_remove() {
+	rm -rf /var/lib/foundationdb
+	rm -rf /var/log/foundationdb
+	rm -rf /etc/foundationdb
+}
