@@ -1,5 +1,5 @@
-pkgname=foundationdb-bin
-pkgver=7.1.43
+pkgname=foundationdb-bin-sighol
+pkgver=7.3.69
 pkgrel=1
 pkgdesc="FoundationDB is a scalable, fault-tolerant, ordered key-value store with full ACID transactions. This package contains the server and client."
 arch=('x86_64')
@@ -16,8 +16,8 @@ source_x86_64=(
 	"https://github.com/apple/foundationdb/releases/download/${pkgver}/foundationdb-clients-${pkgver}-${pkgrel}.el7.x86_64.rpm"
 )
 sha256sums_x86_64=(
-	'9df1c7043fd12d53378cbb96ecc59261225c2ff59aed76159436ebc7102b1276'
-	'732de9475c24f46b29ebb52cccb75fc22f56b5984ae3e04af843b65753c57499'
+	'bc600a412c0bd4f7b884fc6955652341a49bb21a4a80f4c6157c41bd5dcccef3'
+	'8678144b4433e24bd4f82c64cdbcf7c0b89ae66449dfbb95b9ce77a69faf7b7e'
 )
 
 package(){
